@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor de notas · uso local</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#E7EDEF; --tarjeta:#FBFCFC; --tinta:#0E212C; --tinta-media:#43606D;
+  --tinta-suave:#7B929C; --regla:#CBD8DD; --regla-fina:#DFE7EA;
+  --azul:#10577C; --verde:#1B7565; --alerta:#9A2B22; --ambar:#B5761A;
+  --serif:"IBM Plex Serif",Georgia,serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.envoltorio{max-width:1080px;margin:0 auto;padding:0 20px 64px}
+
+.cabecera{padding:34px 0 18px;border-bottom:1px solid var(--regla)}
+.rotulo{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-suave);margin:0 0 9px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(25px,4vw,36px);margin:0;letter-spacing:-.02em}
+.bajada{margin:12px 0 0;max-width:62ch;color:var(--tinta-media);font-size:14.5px}
+.cinta{margin-top:16px;border:1px solid var(--ambar);border-left-width:3px;background:#FDF8EF;padding:11px 14px;font-size:13.5px;color:var(--tinta-media);max-width:70ch}
+.cinta b{color:var(--tinta)}
+
+.columnas{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--regla);border:1px solid var(--regla);margin-top:26px}
+.col{background:var(--tarjeta);padding:22px;min-width:0}
+.col h2{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--tinta-suave);margin:0 0 18px}
+
+.campo{margin-bottom:14px}
+.campo label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:6px}
+.campo input,.campo textarea{width:100%;padding:9px 11px;border:1px solid var(--regla);background:#fff;color:var(--tinta);font-family:var(--sans);font-size:14.5px;border-radius:2px}
+.campo textarea{min-height:230px;resize:vertical;line-height:1.6}
+.campo input:focus,.campo textarea:focus{outline:2px solid var(--azul);outline-offset:1px;border-color:var(--azul)}
+.fila{display:grid;grid-template-columns:1fr 190px;gap:14px}
+.pista{font-size:12.5px;color:var(--tinta-suave);margin:-6px 0 0}
+
+.vista .nota-meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:8px;display:flex;gap:12px;flex-wrap:wrap}
+.vista h3{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em;line-height:1.25}
+.vista .cuerpo{max-width:68ch}
+.vista .cuerpo p{margin:0 0 12px}
+.vista .apagado{color:var(--tinta-suave);font-size:14px}
+
+.salida{margin-top:22px;border-top:1px solid var(--regla-fina);padding-top:18px}
+.salida h3{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--tinta-suave);margin:0 0 12px}
+pre{margin:0;padding:14px;background:var(--papel);border:1px solid var(--regla);border-radius:2px;font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:280px;overflow:auto}
+.acciones{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.btn{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:9px 15px;border:1px solid var(--tinta);background:var(--tinta);color:#fff;cursor:pointer;border-radius:2px}
+.btn.fantasma{background:transparent;color:var(--tinta)}
+.btn:hover{opacity:.85}
+.btn:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+.msg{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--verde)}
+.msg.mal{color:var(--alerta)}
+
+.pasos{margin-top:34px;border-top:1px solid var(--regla);padding-top:20px}
+.pasos h2{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 12px}
+.pasos ol{margin:0;padding-left:20px;max-width:74ch;color:var(--tinta-media)}
+.pasos li{margin-bottom:8px}
+code{font-family:var(--mono);font-size:12.5px;background:var(--tarjeta);border:1px solid var(--regla-fina);padding:1px 5px;border-radius:2px;color:var(--tinta)}
+
+@media (max-width:900px){.columnas{grid-template-columns:1fr}.fila{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="envoltorio">
+
+  <header class="cabecera">
+    <p class="rotulo">Herramienta local · no subir al repositorio</p>
+    <h1>Editor de notas</h1>
+    <p class="bajada">Escribís acá, ves cómo va a quedar, y copiás el bloque para pegarlo en <code>index.html</code>. Nada sale de tu computadora.</p>
+    <p class="cinta">Este archivo <b>se queda en tu máquina</b>. Si lo subís al repositorio junto con la página, vuelve el problema que quisimos evitar: cualquiera podría redactar un texto falso con la maqueta idéntica a la tuya y sacarle una captura.</p>
+  </header>
+
+  <div class="columnas">
+    <section class="col">
+      <h2>Redacción</h2>
+      <div class="fila">
+        <div class="campo">
+          <label for="titulo">Título</label>
+          <input id="titulo" type="text" placeholder="El interés desplaza al salario">
+        </div>
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input id="fecha" type="date">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="autor">Autor</label>
+        <input id="autor" type="text" placeholder="Seudónimo o iniciales">
+      </div>
+      <div class="campo">
+        <label for="cuerpo">Texto</label>
+        <textarea id="cuerpo" placeholder="Escribí acá.&#10;&#10;Una línea en blanco separa los párrafos."></textarea>
+      </div>
+      <p class="pista">Una línea en blanco separa párrafos. No uses el carácter <code>|</code> en el título ni en el autor: es el separador del encabezado.</p>
+    </section>
+
+    <section class="col">
+      <h2>Vista previa</h2>
+      <div class="vista" id="vista"></div>
+
+      <div class="salida">
+        <h3>Bloque para pegar</h3>
+        <pre id="salida"></pre>
+        <div class="acciones">
+          <button type="button" class="btn" id="copiar">Copiar bloque</button>
+          <button type="button" class="btn fantasma" id="limpiar">Limpiar</button>
+          <span class="msg" id="msg"></span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="pasos">
+    <h2>Qué hacer con el bloque</h2>
+    <ol>
+      <li>Tocá <b>Copiar bloque</b>.</li>
+      <li>En GitHub, abrí <code>index.html</code> y hacé clic en el lápiz para editar.</li>
+      <li>Buscá <code>ESCRIBIR NOTAS ACÁ</code> (Ctrl+F o Cmd+F).</li>
+      <li>Pegá el bloque justo debajo de <code>&lt;script type="text/plain" id="fuente-notas"&gt;</code>. El orden no importa: la página ordena por fecha sola.</li>
+      <li><b>Commit changes</b>. En menos de un minuto está publicado.</li>
+    </ol>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var MESES = ["enero","febrero","marzo","abril","mayo","junio","julio",
+               "agosto","septiembre","octubre","noviembre","diciembre"];
+
+  var campos = {
+    titulo: document.getElementById("titulo"),
+    fecha:  document.getElementById("fecha"),
+    autor:  document.getElementById("autor"),
+    cuerpo: document.getElementById("cuerpo")
+  };
+  var vista  = document.getElementById("vista");
+  var salida = document.getElementById("salida");
+  var msg    = document.getElementById("msg");
+
+  campos.fecha.value = new Date().toISOString().slice(0,10);
+
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+  function fechaLegible(iso){
+    var p = String(iso).split("-");
+    if(p.length < 3 || isNaN(+p[1])) return iso;
+    return (+p[2]) + " de " + MESES[+p[1]-1] + " de " + p[0];
+  }
+  function leer(){
+    return {
+      titulo: campos.titulo.value.trim().replace(/\|/g, "/"),
+      fecha:  campos.fecha.value || new Date().toISOString().slice(0,10),
+      autor:  campos.autor.value.trim().replace(/\|/g, "/"),
+      cuerpo: campos.cuerpo.value.trim().split(/\n\s*\n/)
+                .map(function(s){ return s.trim().replace(/\s*\n\s*/g, " "); })
+                .filter(Boolean)
+    };
+  }
+  function bloque(n){
+    return "### " + n.fecha + " | " + n.titulo + (n.autor ? " | " + n.autor : "") +
+           "\n\n" + n.cuerpo.join("\n\n") + "\n";
+  }
+  function decir(txt, mal){
+    msg.textContent = txt;
+    msg.className = mal ? "msg mal" : "msg";
+    if(txt) setTimeout(function(){ if(msg.textContent === txt) msg.textContent = ""; }, 3000);
+  }
+
+  function pintar(){
+    var n = leer();
+    if(!n.titulo && !n.cuerpo.length){
+      vista.innerHTML  = '<p class="apagado">La nota aparece acá a medida que escribís.</p>';
+      salida.textContent = "";
+      return;
+    }
+    vista.innerHTML =
+      '<div class="nota-meta"><span>' + esc(fechaLegible(n.fecha)) + '</span>' +
+      (n.autor ? '<span>' + esc(n.autor) + '</span>' : '') + '</div>' +
+      '<h3>' + esc(n.titulo || "(sin título)") + '</h3>' +
+      '<div class="cuerpo">' + n.cuerpo.map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("") + '</div>';
+    salida.textContent = bloque(n);
+  }
+
+  Object.keys(campos).forEach(function(k){
+    campos[k].addEventListener("input", pintar);
+    campos[k].addEventListener("change", pintar);
+  });
+
+  document.getElementById("copiar").addEventListener("click", function(){
+    var n = leer();
+    if(!n.titulo){ decir("Falta el título.", true); return; }
+    if(!n.cuerpo.length){ decir("Falta el texto.", true); return; }
+    var txt = bloque(n);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(
+        function(){ decir("Copiado. Pegalo en index.html."); },
+        function(){ window.prompt("Copiá este bloque:", txt); });
+    } else {
+      window.prompt("Copiá este bloque:", txt);
+    }
+  });
+
+  document.getElementById("limpiar").addEventListener("click", function(){
+    campos.titulo.value = "";
+    campos.cuerpo.value = "";
+    campos.fecha.value = new Date().toISOString().slice(0,10);
+    pintar();
+    campos.titulo.focus();
+  });
+
+  pintar();
+})();
+</script>
+</body>
+</html>
