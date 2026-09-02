@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lo que dice el FMI: 2% del PIB sin registrar · Observatorio Fiscal PY</title>
+<meta name="description" content="Paraguay reconoció 1,1% del PIB en gasto no registrado en 2023 y otros 2% en 2026, en los mismos dos ministerios. Qué muestran los cuadros del FMI y por qué la deuda flotante del SITUFIN no lo detectó.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#E7EDEF; --tarjeta:#FBFCFC; --tinta:#0E212C; --tinta-media:#43606D;
+  --tinta-suave:#7B929C; --regla:#CBD8DD; --regla-fina:#DFE7EA;
+  --azul:#10577C; --pizarra:#3E4F58; --verde:#1B7565; --ambar:#B5761A; --alerta:#9A2B22;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);
+  font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.envoltorio{max-width:780px;margin:0 auto;padding:0 20px 72px}
+
+.volver{display:inline-block;margin:26px 0 0;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-media);text-decoration:none;
+  border-bottom:1px solid var(--regla);padding-bottom:2px}
+.volver:hover{color:var(--azul);border-bottom-color:var(--azul)}
+
+.cabecera{padding:26px 0 24px;border-bottom:1px solid var(--regla);margin-bottom:34px}
+.rotulo{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tinta-suave);margin:0 0 12px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(29px,5vw,44px);line-height:1.08;
+  letter-spacing:-.022em;margin:0}
+.copete{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--tinta-media);
+  margin:16px 0 0;font-weight:400}
+.credito{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tinta-suave);margin:20px 0 0;display:flex;gap:14px;flex-wrap:wrap}
+
+article p{margin:0 0 20px}
+article h2{font-family:var(--serif);font-size:25px;font-weight:600;letter-spacing:-.015em;
+  line-height:1.22;margin:44px 0 14px}
+article h3{font-family:var(--serif);font-size:19.5px;font-weight:600;margin:32px 0 10px}
+article ul,article ol{margin:0 0 20px;padding-left:22px}
+article li{margin-bottom:7px}
+article a{color:var(--azul);text-decoration:none;border-bottom:1px solid var(--regla)}
+article a:hover{border-bottom-color:var(--azul)}
+article strong{font-weight:600}
+.destacado{border-left:3px solid var(--azul);background:var(--tarjeta);padding:16px 20px;
+  margin:0 0 22px;font-family:var(--serif);font-size:18px;line-height:1.5;color:var(--tinta-media)}
+.dato{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500}
+
+table{width:100%;border-collapse:collapse;margin:0 0 24px;font-size:14.5px}
+th,td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--regla-fina)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--tinta-suave);border-bottom:1px solid var(--regla)}
+tbody td:not(:first-child){font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- gráficos ---------- */
+figure.figura{margin:34px 0 38px;background:var(--tarjeta);border:1px solid var(--regla);
+  padding:20px 22px 12px}
+.fig-indice{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--azul);display:block;margin-bottom:7px}
+.fig-titulo{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.25;margin:0}
+.fig-sub{font-size:13px;color:var(--tinta-media);margin:7px 0 0;line-height:1.45}
+.fig-lienzo{margin-top:14px;position:relative}
+.fig-lienzo svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.fig-leyenda{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px}
+.leyenda-item{display:flex;align-items:baseline;gap:7px;font-size:12.5px;line-height:1.3}
+.leyenda-tono{width:9px;height:9px;flex-shrink:0;border-radius:1px;transform:translateY(-1px)}
+.leyenda-nombre{color:var(--tinta-media)}
+.leyenda-cifra{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--tinta);
+  font-variant-numeric:tabular-nums}
+.fig-pie{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--tinta-suave);
+  text-transform:uppercase;border-top:1px solid var(--regla-fina);margin-top:10px;padding:8px 0 4px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fig-bajar{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:none;padding:2px 0;color:var(--tinta-media);cursor:pointer;
+  border-bottom:1px solid var(--regla);white-space:nowrap}
+.fig-bajar:hover{color:var(--azul);border-bottom-color:var(--azul)}
+.fig-bajar:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+
+.pie{margin-top:56px;padding-top:18px;border-top:1px solid var(--regla);font-family:var(--mono);
+  font-size:11px;letter-spacing:.04em;color:var(--tinta-suave);line-height:2}
+.pie a{color:var(--tinta-media);text-decoration:none;border-bottom:1px solid var(--regla)}
+.pie a:hover{color:var(--azul);border-bottom-color:var(--azul)}
+
+@media (max-width:620px){
+  body{font-size:15.5px}
+  figure.figura{padding:16px 14px 10px;margin-left:-14px;margin-right:-14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="envoltorio">
+
+  <a class="volver" href="../index.html">← Volver al visor</a>
+
+  <header class="cabecera">
+    <p class="rotulo">Informe</p>
+    <h1>Lo que dice el FMI: 2% del PIB sin registrar</h1>
+    <p class="copete">El informe no dedica un párrafo a decir que el registro del gasto público falló por segunda vez en tres años. Lo dice agregando tres líneas nuevas a un cuadro, y una nota al pie.</p>
+    <p class="credito">
+      <span>2 de septiembre de 2026</span>
+      <span>Observatorio Fiscal PY</span>
+    </p>
+  </header>
+
+  <article>
+
+    <p>El Artículo IV publicado en setiembre no afirma en ninguna parte que el sistema de registro del gasto público haya vuelto a fallar. Lo deja asentado en el cuadro.</p>
+
+    <h2>Tres líneas que antes no existían</h2>
+
+    <p>El Fondo publica en cada informe el mismo cuadro de Operaciones del Gobierno Central. Comparadas las cuatro versiones que proyectaron 2026, no cambian solo las cifras: cambia qué líneas existen. Todo en porcentajes del PIB.</p>
+
+    <table>
+      <thead>
+        <tr><th>Concepto</th><th>24/200<br>jun-2024</th><th>25/161<br>jul-2025</th><th>26/13<br>ene-2026</th><th>26/235<br>set-2026</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Déficit 2026</strong></td><td>1,5</td><td>1,5</td><td>1,5</td><td><strong>3,5</strong></td></tr>
+        <tr><td>Bienes y servicios</td><td>1,2</td><td>1,5</td><td>1,9</td><td>2,5</td></tr>
+        <tr><td>Inversión (ANANF)</td><td>1,6</td><td>1,7</td><td>1,3</td><td>1,7</td></tr>
+        <tr><td>Línea de regularización de atrasos</td><td>—</td><td>—</td><td>—</td><td>1,3</td></tr>
+        <tr><td>Partida «deuda flotante»</td><td>—</td><td>sí</td><td>sí</td><td>sí</td></tr>
+        <tr><td>Partida «atrasos pendientes»</td><td>—</td><td>—</td><td>—</td><td>0,5</td></tr>
+        <tr><td>Medidas no especificadas (2028)</td><td>—</td><td>—</td><td>—</td><td>0,5</td></tr>
+        <tr><td>Cumplimiento de la LRF</td><td>2026</td><td>2026</td><td>2026</td><td>2028</td></tr>
+      </tbody>
+    </table>
+
+    <p>La regularización de atrasos se desglosa por primera vez dentro del gasto: 1,0 punto del PIB en bienes y servicios y 0,3 en inversión durante 2026, más 0,5 en 2027. Son obligaciones con proveedores del Ministerio de Obras Públicas y del Ministerio de Salud por unos <span class="dato">USD 1.300 millones</span>, acumuladas entre 2023 y 2025, que el gobierno declaró en abril. No estaban registradas: el informe dice que su liquidación se sumará al gasto registrado.</p>
+
+    <p class="destacado">De los 3,5 puntos de déficit proyectados para 2026, 1,3 son gasto de años anteriores. Sin eso, el déficit sería 2,2%.</p>
+
+    <h2>La nota al pie de enero</h2>
+
+    <p>La revisión publicada el 22 de enero de 2026 ya describía obligaciones verificadas por cerca de 1,4% del PIB, más un cuarto de punto en intereses en disputa. Y aun así proyectaba un déficit de <span class="dato">1,5%</span> para 2026 y el retorno al techo de la Ley de Responsabilidad Fiscal por primera vez desde 2018.</p>
+
+    <p>La cuenta cerraba porque los atrasos entraron sin nombre propio: bienes y servicios subió de 1,5% a 1,9% del PIB y la inversión bajó de 1,7% a 1,3%. La única advertencia está en una nota al pie, donde se lee que esto podía comprimir la inversión pública financiada por el presupuesto.</p>
+
+    <figure class="figura" id="g1"></figure>
+
+    <p>Seis meses después, con la inversión de vuelta en 1,7%, el déficit proyectado pasó a 3,5% del PIB y el cumplimiento de la regla se corrió a 2028.</p>
+
+    <h2>La segunda partida</h2>
+
+    <p>El SITUFIN publica una fila de deuda flotante que el Fondo venía usando como partida informativa. La variación fue de +2.289 mil millones de guaraníes en 2023, −3.017 en 2024 y −733 en 2025: un acumulado de <span class="dato">−₲1,5 billones</span>.</p>
+
+    <figure class="figura" id="g2"></figure>
+
+    <p class="destacado">Durante los tres años en que se acumulaban cerca de ₲8 billones en obligaciones impagas, el único indicador oficial de deuda flotante mostraba que estaba bajando.</p>
+
+    <p>No es un error de medición. La deuda flotante mide obligaciones registradas y pendientes de pago; estas nunca llegaron a registrarse. Por eso el informe de setiembre agregó una segunda partida al lado de la primera. No explica el motivo: la que ya existía no medía lo que se creía que medía.</p>
+
+    <h2>El ajuste sin nombre</h2>
+
+    <p>La tercera línea nueva se llama medidas no especificadas para reducir el déficit: 0,5% del PIB en 2028, 0,3% en 2029, 0,2% en 2030 y 0,1% en 2031. El déficit baja de 2,7% en 2027 a 1,5% en 2028, el techo de la regla, y de ese salto de 1,2 puntos en un solo año <strong>0,5 no tienen medida asignada</strong>.</p>
+
+    <p>En el mismo cuadro, la discrepancia estadística entre el cálculo por encima y por debajo de la línea fue de 0,8% del PIB en 2023 y de 1,1% en 2025. No se menciona en ningún párrafo del informe. En un sistema bien medido debería rondar cero.</p>
+
+    <h2>Lo que el informe no dice</h2>
+
+    <p>Que ya había pasado. En el Artículo IV de junio de 2024 el Fondo describió el reconocimiento de 1,1% del PIB en obligaciones no registradas con proveedores de esos mismos dos ministerios, acumuladas durante la pandemia, y dejó constancia de que las autoridades no esperaban nuevos episodios por tratarse de un legado de debilidades de gestión fiscal. El Directorio subrayó la importancia de las medidas correctivas en marcha.</p>
+
+    <p>Los atrasos que se regularizan ahora se acumularon entre 2023 y 2025, con esas medidas ya adoptadas. El informe de setiembre no hace la comparación.</p>
+
+    <p>Para leer los paneles de este observatorio el efecto es doble y opuesto: los déficits de 2023 a 2025 estaban subestimados en cerca de 2% del PIB, y el de 2026 exagera el deterioro en 1,3 puntos. El Fondo cierra recomendando avanzar hacia el registro en base devengado. Mientras ese desfase exista, cualquier serie construida sobre el gasto obligado —esta incluida— mide lo que el Tesoro reconoció, no lo que el Estado gastó.</p>
+
+  </article>
+
+  <footer class="pie">
+    Fuente: Ministerio de Economía y Finanzas · <a href="https://www.mef.gov.py/es/situfin" target="_blank" rel="noopener noreferrer">SITUFIN</a>, Estado de Operaciones del Gobierno, Administración Central, serie mensual en formato MEFP 2001.<br>
+    Informes del FMI sobre Paraguay N.º 24/200 (jun-2024), 25/161 (jul-2025), 26/13 (ene-2026) y 26/235 (set-2026).<br>
+    Elaboración propia. Los datos de cada gráfico se pueden descargar desde el propio gráfico.<br>
+    <a href="../index.html">Observatorio Fiscal PY</a> · Contacto: observatoriofiscalpy@gmail.com
+  </footer>
+
+</div>
+
+<script>
+/* ==========================================================================
+   GRÁFICOS DEL INFORME
+
+   Un objeto por gráfico. El "id" tiene que coincidir con el id del <figure>
+   que pusiste en el texto.
+
+   tipo:        "linea" | "apilado" | "barras"
+   x:           las etiquetas del eje horizontal (una por dato)
+   series:      una o varias. Cada una: nombre, color y valores
+   unidad:      lo que se agrega después del número. "%" o "" o " mm Gs."
+   decimales:   cuántos decimales mostrar
+   referencia:  línea punteada horizontal, o null si no hace falta
+   fuente:      lo que va abajo a la izquierda del gráfico
+
+   Colores de la casa:
+     azul #10577C · pizarra #3E4F58 · verde #1B7565 · ámbar #B5761A
+     rojo #8C3B2E · grises #2F4550 #5D7684 #98AEB8
+   ========================================================================== */
+const GRAFICOS = [
+  {
+    id: "g1",
+    indice: "Gráfico 1",
+    titulo: "La proyección que no se movió",
+    subtitulo: "Déficit de la Administración Central proyectado para 2026, según cada informe del FMI. En % del PIB. La línea punteada es el techo de la Ley de Responsabilidad Fiscal.",
+    tipo: "barras",
+    unidad: "%",
+    decimales: 1,
+    referencia: 1.5,
+    fuente: "Informes del FMI 24/200, 25/161, 26/13 y 26/235",
+    archivo: "proyeccion-deficit-2026",
+    x: ["jun-2024","jul-2025","ene-2026","set-2026"],
+    series: [
+      { nombre: "Déficit proyectado para 2026", color: "#10577C",
+        valores: [1.5, 1.5, 1.5, 3.5] }
+    ]
+  },
+
+  {
+    id: "g2",
+    indice: "Gráfico 2",
+    titulo: "Lo que la deuda flotante registró",
+    subtitulo: "Variación anual del stock de deuda flotante de la Administración Central, en miles de millones de guaraníes. Entre 2023 y 2025 el acumulado es negativo.",
+    tipo: "linea",
+    unidad: "",
+    decimales: 0,
+    referencia: 0,
+    fuente: "SITUFIN. Elaboración propia",
+    archivo: "deuda-flotante-variacion",
+    x: ["2019","2020","2021","2022","2023","2024","2025"],
+    series: [
+      { nombre: "Variación anual", color: "#8C3B2E",
+        valores: [745, 985, -585, 738, 2289, -3017, -733] }
+    ]
+  }
+];
+
+/* ==========================================================================
+   MOTOR — de acá para abajo no hace falta tocar nada
+   ========================================================================== */
+(function(){
+  "use strict";
+  var SVG = "http://www.w3.org/2000/svg";
+  function el(t, a){ var n = document.createElementNS(SVG, t), k;
+    for(k in a) if(a.hasOwnProperty(k)) n.setAttribute(k, a[k]); return n; }
+
+  function escalaLinda(min, max, objetivo){
+    var span = (max - min) || Math.abs(max) || 1;
+    var bruto = span / objetivo;
+    var mag = Math.pow(10, Math.floor(Math.log10(bruto)));
+    var norm = bruto / mag, paso;
+    if(norm <= 1) paso = 1; else if(norm <= 2) paso = 2;
+    else if(norm <= 2.5) paso = 2.5; else if(norm <= 5) paso = 5; else paso = 10;
+    paso *= mag;
+    var lo = Math.floor(min/paso)*paso, hi = Math.ceil(max/paso)*paso, t = [], v;
+    for(v = lo; v <= hi + paso/1000; v += paso) t.push(+v.toFixed(10));
+    return { lo:lo, hi:hi, ticks:t };
+  }
+
+  function fmt(cfg, v){
+    if(v === null || v === undefined) return "—";
+    return v.toFixed(cfg.decimales).replace(".", ",") + (cfg.unidad || "");
+  }
+  function fmtEje(cfg, v){
+    var d = Math.abs(v % 1) < 0.001 ? 0 : cfg.decimales;
+    return v.toFixed(d).replace(".", ",") + (cfg.unidad || "");
+  }
+
+  function bajarCSV(nombre, texto){
+    var blob = new Blob(["\uFEFF" + texto], { type:"text/csv;charset=utf-8;" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = nombre;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  }
+  function csv(cfg){
+    var filas = [["categoria"].concat(cfg.series.map(function(s){ return s.nombre; })).join(";")];
+    cfg.x.forEach(function(etq, i){
+      filas.push([etq].concat(cfg.series.map(function(s){
+        var v = s.valores[i];
+        return (v === null || v === undefined) ? "" : String(v).replace(".", ",");
+      })).join(";"));
+    });
+    return filas.join("\r\n");
+  }
+
+  var geo = {};
+
+  function armar(cfg){
+    var fig = document.getElementById(cfg.id);
+    if(!fig) return;
+    var multiple = cfg.series.length > 1;
+    fig.innerHTML =
+      (cfg.indice ? '<span class="fig-indice">' + cfg.indice + '</span>' : '') +
+      '<p class="fig-titulo">' + cfg.titulo + '</p>' +
+      (cfg.subtitulo ? '<p class="fig-sub">' + cfg.subtitulo + '</p>' : '') +
+      '<div class="fig-lienzo" id="lienzo-' + cfg.id + '"></div>' +
+      (multiple ? '<div class="fig-leyenda">' + cfg.series.map(function(s, n){
+          return '<span class="leyenda-item">' +
+            '<span class="leyenda-tono" style="background:' + s.color + '"></span>' +
+            '<span class="leyenda-nombre">' + s.nombre + '</span>' +
+            '<span class="leyenda-cifra" id="cif-' + cfg.id + '-' + n + '"></span></span>';
+        }).join("") + '</div>' : '') +
+      '<div class="fig-pie"><span>' + (cfg.fuente || "") + '</span>' +
+        '<button type="button" class="fig-bajar" data-id="' + cfg.id + '">Datos ↓</button></div>';
+
+    fig.querySelector(".fig-bajar").addEventListener("click", function(){
+      bajarCSV((cfg.archivo || cfg.id) + ".csv", csv(cfg));
+    });
+  }
+
+  function dibujar(cfg){
+    var caja = document.getElementById("lienzo-" + cfg.id);
+    if(!caja) return;
+    var W = caja.clientWidth || 700;
+    var H = W < 420 ? 200 : 250;
+    var M = { t:14, r:12, b:26, l: W < 420 ? 44 : 52 };
+    var n = cfg.x.length;
+
+    var totales = cfg.x.map(function(_, i){
+      if(cfg.tipo === "apilado"){
+        return cfg.series.reduce(function(s, se){ return s + (se.valores[i] || 0); }, 0);
+      }
+      return Math.max.apply(null, cfg.series.map(function(se){ return se.valores[i]; }));
+    });
+    var minimos = cfg.x.map(function(_, i){
+      if(cfg.tipo === "apilado") return 0;
+      return Math.min.apply(null, cfg.series.map(function(se){ return se.valores[i]; }));
+    });
+    var max = Math.max.apply(null, totales), min = Math.min.apply(null, minimos);
+    if(cfg.referencia !== null && cfg.referencia !== undefined){
+      max = Math.max(max, cfg.referencia); min = Math.min(min, cfg.referencia);
+    }
+    var escY;
+    if(cfg.tipo === "linea"){
+      var pad = (max - min) * 0.12 || 1;
+      escY = escalaLinda(min - pad, max + pad, H < 220 ? 3 : 4);
+    } else {
+      escY = escalaLinda(0, max * 1.06 || 1, H < 220 ? 3 : 4);
+      escY.lo = 0;
+    }
+
+    var ancho = W - M.l - M.r;
+    var banda = ancho / n;
+    var x = cfg.tipo === "barras"
+      ? function(k){ return M.l + banda*(k + 0.5); }
+      : function(k){ return M.l + (n < 2 ? ancho/2 : k*ancho/(n-1)); };
+    var y = function(v){ return M.t + (escY.hi - v)*(H-M.t-M.b)/(escY.hi - escY.lo || 1); };
+
+    caja.innerHTML = "";
+    var svg = el("svg", { viewBox:"0 0 "+W+" "+H, role:"img", "aria-label":cfg.titulo });
+
+    escY.ticks.forEach(function(t){
+      var yt = y(t);
+      if(yt < M.t-1 || yt > H-M.b+1) return;
+      svg.appendChild(el("line", { x1:M.l, y1:yt, x2:W-M.r, y2:yt,
+        stroke:"var(--regla-fina)", "stroke-width":1 }));
+      var tx = el("text", { x:M.l-8, y:yt+3.5, "text-anchor":"end",
+        "font-family":"var(--mono)", "font-size":10, fill:"var(--tinta-suave)" });
+      tx.textContent = fmtEje(cfg, t);
+      svg.appendChild(tx);
+    });
+
+    var salto = Math.max(1, Math.ceil(n / (W < 420 ? 4 : 8)));
+    cfg.x.forEach(function(etq, k){
+      if(k % salto !== 0 && k !== n-1) return;
+      var tx = el("text", { x:x(k), y:H-M.b+15, "text-anchor":"middle",
+        "font-family":"var(--mono)", "font-size":10, fill:"var(--tinta-suave)" });
+      tx.textContent = etq;
+      svg.appendChild(tx);
+    });
+    svg.appendChild(el("line", { x1:M.l, y1:H-M.b, x2:W-M.r, y2:H-M.b,
+      stroke:"var(--regla)", "stroke-width":1 }));
+
+    if(cfg.referencia !== null && cfg.referencia !== undefined){
+      svg.appendChild(el("line", { x1:M.l, y1:y(cfg.referencia), x2:W-M.r, y2:y(cfg.referencia),
+        stroke:"var(--alerta)", "stroke-width":1, "stroke-dasharray":"4 3", "stroke-opacity":.75 }));
+    }
+
+    if(cfg.tipo === "apilado"){
+      var acum = cfg.x.map(function(){ return 0; });
+      cfg.series.forEach(function(s){
+        var arriba = [], abajo = [];
+        cfg.x.forEach(function(_, k){
+          var base = acum[k], techo = base + (s.valores[k] || 0);
+          acum[k] = techo;
+          abajo.push(x(k).toFixed(2) + " " + y(base).toFixed(2));
+          arriba.push(x(k).toFixed(2) + " " + y(techo).toFixed(2));
+        });
+        svg.appendChild(el("path", { d:"M" + arriba.join("L") + "L" + abajo.reverse().join("L") + "Z",
+          fill:s.color, "fill-opacity":.9, stroke:"var(--tarjeta)", "stroke-width":.5 }));
+      });
+    } else if(cfg.tipo === "barras"){
+      var m = cfg.series.length, ancho1 = banda*0.72/m;
+      cfg.series.forEach(function(s, j){
+        cfg.x.forEach(function(_, k){
+          var v = s.valores[k];
+          if(v === null || v === undefined) return;
+          var px = M.l + banda*k + banda*0.14 + ancho1*j;
+          var arriba = Math.min(y(v), y(0)), alto = Math.abs(y(v) - y(0));
+          svg.appendChild(el("rect", { x:px.toFixed(2), y:arriba.toFixed(2),
+            width:ancho1.toFixed(2), height:Math.max(alto,1).toFixed(2), fill:s.color, "fill-opacity":.9 }));
+        });
+      });
+    } else {
+      cfg.series.forEach(function(s){
+        var d = "";
+        cfg.x.forEach(function(_, k){
+          var v = s.valores[k];
+          if(v === null || v === undefined) return;
+          d += (d ? "L" : "M") + x(k).toFixed(2) + " " + y(v).toFixed(2);
+        });
+        if(cfg.series.length === 1){
+          svg.appendChild(el("path", { d:"M" + x(0).toFixed(2) + " " + (H-M.b) +
+            d.slice(1) + "L" + x(n-1).toFixed(2) + " " + (H-M.b) + "Z",
+            fill:s.color, "fill-opacity":.07 }));
+        }
+        svg.appendChild(el("path", { d:d, fill:"none", stroke:s.color,
+          "stroke-width":1.9, "stroke-linejoin":"round", "stroke-linecap":"round" }));
+      });
+    }
+
+    var cruz = el("g", { opacity:0 });
+    var vln = el("line", { y1:M.t, y2:H-M.b, stroke:"var(--tinta)", "stroke-width":1, "stroke-opacity":.55 });
+    cruz.appendChild(vln);
+    svg.appendChild(cruz);
+    svg.appendChild(el("rect", { x:0, y:0, width:W, height:H, fill:"transparent" }));
+    caja.appendChild(svg);
+    geo[cfg.id] = { cruz:cruz, vln:vln, W:W, x:x, n:n, cfg:cfg };
+    marcar(cfg, n-1);
+  }
+
+  function marcar(cfg, k){
+    if(!cfg.series.length) return;
+    cfg.series.forEach(function(s, j){
+      var c = document.getElementById("cif-" + cfg.id + "-" + j);
+      if(c) c.textContent = fmt(cfg, s.valores[k]);
+    });
+  }
+
+  function conectar(cfg){
+    var caja = document.getElementById("lienzo-" + cfg.id);
+    if(!caja) return;
+    function mover(ev){
+      var g = geo[cfg.id]; if(!g) return;
+      var r = caja.getBoundingClientRect();
+      var cx = ((ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left) * (g.W / r.width);
+      var mejor = 0, dm = Infinity, k;
+      for(k = 0; k < g.n; k++){
+        var dd = Math.abs(g.x(k) - cx);
+        if(dd < dm){ dm = dd; mejor = k; }
+      }
+      g.vln.setAttribute("x1", g.x(mejor)); g.vln.setAttribute("x2", g.x(mejor));
+      g.cruz.setAttribute("opacity", 1);
+      marcar(cfg, mejor);
+    }
+    function salir(){
+      var g = geo[cfg.id]; if(!g) return;
+      g.cruz.setAttribute("opacity", 0);
+      marcar(cfg, cfg.x.length - 1);
+    }
+    caja.onmousemove = mover; caja.onmouseleave = salir;
+    caja.ontouchstart = mover; caja.ontouchmove = mover; caja.ontouchend = salir;
+  }
+
+  GRAFICOS.forEach(armar);
+  function todo(){ GRAFICOS.forEach(function(c){ dibujar(c); conectar(c); }); }
+  todo();
+
+  var t;
+  window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(todo, 140); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(todo);
+})();
+</script>
+</body>
+</html>
