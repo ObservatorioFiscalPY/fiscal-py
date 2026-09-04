@@ -363,7 +363,7 @@ const SERIES = {
       valores: razon(gasTot, ing), fmt:fmtPct, fmtEje:fmtEjePct, unidad:"pp", direccion:-1, referencia:100 },
 
     { id:"p2", indice:"02", color:"var(--pizarra)", crudo:"#3E4F58",
-      titulo:"Gasto comprometido sobre ingreso total",
+      titulo:"Gasto rígido sobre ingreso total",
       formula:"Salarios, jubilaciones, asistencia social e intereses: los cuatro bloques que no se recortan de un mes al otro, sobre el ingreso total.",
       pie:"Áreas apiladas · razón, suma móvil 12 meses",
       valores: razon(sumar(rem, emp, seg, asi, itr), ing),
